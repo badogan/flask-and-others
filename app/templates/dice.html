@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>How would you like to reach to 100? Enter next move for each dice imaginary roll:)</h1>
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.dice1.label }}<br>
+            {{ form.dice1(size=32) }}<br>
+            {% for error in form.dice1.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.dice2.label }}<br>
+            {{ form.dice2(size=32) }}<br>
+            {% for error in form.dice2.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.dice3.label }}<br>
+            {{ form.dice3(size=32) }}<br>
+            {% for error in form.dice3.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.dice4.label }}<br>
+            {{ form.dice4(size=32) }}<br>
+            {% for error in form.dice4.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.dice5.label }}<br>
+            {{ form.dice5(size=32) }}<br>
+            {% for error in form.dice5.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.dice6.label }}<br>
+            {{ form.dice6(size=32) }}<br>
+            {% for error in form.dice6.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit() }}
+        </p>
+    </form>
+{% endblock %}

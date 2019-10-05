@@ -1,8 +1,13 @@
 from flask import render_template, flash, redirect, url_for
 from app import app
-from app.forms import LoginForm, BasriForm, BasriForm2, RandommealForm
+from app.forms import LoginForm, BasriForm, BasriForm2, RandommealForm, BasriDiceForm
 import lib.BasriFunctions as h
 import config as c
+import numpy as np
+import base64
+from io import BytesIO
+from matplotlib.figure import Figure
+import pandas as pd
 
 @app.route('/')
 @app.route('/index')
@@ -47,6 +52,37 @@ def basri2():
             form.var1.data, form.var2.data, multiplied_value, c.Config.SECRET_KEY,c.Config.USERNAME))
         return redirect(url_for('index'))
     return render_template('getdata2.html', title='Basri', form=form)
+
+@app.route('/dice', methods=['GET', 'POST'])
+def dice():
+    user = {'username': 'Basri'}                     
+    posts = [
+        {
+            'body': 'An imaginary and random dice is thrown. :)'
+        },
+        {
+            'body': 'Next move is assessed according to the table you entered in the previous form.'
+        },
+        {
+            'body': 'Process is repeated until the total value reaches to 100'
+        },
+        {
+            'body': 'Maximum 2000 dice throws allowed!'
+        }
+    ]
+    form = BasriDiceForm()
+    if form.validate_on_submit():
+        flash('Dice1: {},|Dice2: {},|Dice3: {},|Dice4: {},|Dice5: {},|Dice6: {}'.format(
+            form.dice1.data,form.dice2.data,form.dice3.data,form.dice4.data,form.dice5.data,form.dice6.data))
+        url_to_pass = h.BasriDiceAPICall(form.dice1.data,
+                                         form.dice2.data,
+                                         form.dice3.data,
+                                         form.dice4.data,
+                                         form.dice5.data,
+                                         form.dice6.data
+                                         ).CreateFigure()
+        return render_template('index_dice.html', title='Home', user=user, posts=posts, name = 'new_plot_from_the_real_code', url=url_to_pass)
+    return render_template('dice.html', title='Basri Dice', form=form)
 
 @app.route('/randommeal', methods=['GET', 'POST'])
 def randommeal():

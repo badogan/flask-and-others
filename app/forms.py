@@ -25,3 +25,12 @@ class RandommealForm(FlaskForm):
     location = StringField('Location', validators=[DataRequired()])
     remember_me = BooleanField('Remember Me')
     submit = SubmitField('Get me a random meal!')
+
+class BasriDiceForm(FlaskForm):
+    dice1 = DecimalField('1: How many steps forward?', validators=[DataRequired()])
+    dice2 = DecimalField('2: How many steps forward?', validators=[DataRequired()])
+    dice3 = DecimalField('3: How many steps forward?', validators=[DataRequired()])
+    dice4 = DecimalField('4: How many steps forward?', validators=[DataRequired()])
+    dice5 = DecimalField('5: How many steps forward?', validators=[DataRequired()])
+    dice6 = DecimalField('6: How many steps forward?', validators=[DataRequired()])
+    submit = SubmitField('Show me!')
