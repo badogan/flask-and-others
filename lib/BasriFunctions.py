@@ -45,6 +45,27 @@ class BasriAPICallReduceDF:
                 i=i+1
             return reduced_df
 
+class BasriAPITranslate:
+    def __init__(self, inputDF_to_be_translated,language_chosen):
+        self.inputDF = inputDF_to_be_translated
+        self.language_chosen = language_chosen
+
+    def Translate(self):
+            import boto3
+            region_name = 'eu-west-1'
+            translate = boto3.client(service_name='translate', region_name=region_name, use_ssl=True)
+            text_to_translate = self.inputDF ; target_language= self.language_chosen
+            
+            result = translate.translate_text(Text=text_to_translate, SourceLanguageCode='en', TargetLanguageCode=target_language)
+
+            #for i in enumerate(target_languages_list):
+            #    result = translate.translate_text(Text=text_to_translate, SourceLanguageCode='en', TargetLanguageCode=i)
+                #print('==========================================')
+                #print('TargetLanguageCode: ' + result.get('TargetLanguageCode'))
+                #print('TranslatedText: ' + result.get('TranslatedText'))
+            return result.get('TranslatedText')
+        
+
 class BasriDiceAPICall:
     def __init__(self, dice1,dice2,dice3,dice4,dice5,dice6):
         self.dice1 = dice1

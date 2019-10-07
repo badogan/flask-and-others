@@ -12,6 +12,7 @@ import pandas as pd
 @app.route('/')
 @app.route('/index')
 def index():
+    '''
     user = {'username': 'Miguel'}
     posts = [
         {
@@ -23,7 +24,17 @@ def index():
             'body': 'The Avengers movie was so cool!'
         }
     ]
+    =======index.html======
+    {% block content %}
+    <h1>Hi, {{ user.username }}!</h1>
+    {% for post in posts %}
+    <div><p>{{ post.author.username }} says: <b>{{ post.body }}</b></p></div>
+    {% endfor %}
+    {% endblock %}
+    =======return as!!!======
     return render_template('index.html', title='Home', user=user, posts=posts)
+    '''
+    return render_template('index.html', title='Home')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -86,6 +97,21 @@ def dice():
 
 @app.route('/randommeal', methods=['GET', 'POST'])
 def randommeal():
+    user = {'username': 'Basri'}                     
+    posts = [
+        {
+            'body': 'A random meal is brought to you from:'
+        },
+        {
+            'body': 'a site who provides such service through an API call'
+        },
+        {
+            'body': 'The instruction received is passed to AWS Translate service so that you also receive it in the lanaguage you asked for!'
+        },
+        {
+            'body': 'Example for amalgamation of services in the new world :)'
+        }
+    ]
     form = RandommealForm()
     if form.validate_on_submit():
         url = 'https://www.themealdb.com/api/json/v1/1/random.php'
@@ -102,6 +128,9 @@ def randommeal():
                 flash('{},{}'.format(key, value))
             var=var+1
         flash('Instructions: {}'.format(received_data['meals'][0]['strInstructions']))
-        return redirect(url_for('index'))
+        temp = h.BasriAPITranslate(received_data['meals'][0]['strInstructions'],str(form.language.data)).Translate()
+        flash('Instructions in {}: {}'.format(form.language.data,temp))
+        #return redirect(url_for('index'))
+        return render_template('index_Randommeal.html', title='Home', user=user, posts=posts, name = 'dnm name')
     return render_template('InitiateRandommeal.html', title='Random Meal', form=form)
 

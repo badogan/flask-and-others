@@ -23,8 +23,9 @@ class BasriForm2(FlaskForm):
 class RandommealForm(FlaskForm):
     firstname = StringField('Name', validators=[DataRequired()])
     location = StringField('Location', validators=[DataRequired()])
+    language = StringField('Language (DE,TR,ES,IT,RU,AR)', validators=[DataRequired()])
     remember_me = BooleanField('Remember Me')
-    submit = SubmitField('Get me a random meal!')
+    submit = SubmitField('Get me a random meal. Instructions in 2 languages!')
 
 class BasriDiceForm(FlaskForm):
     dice1 = DecimalField('1: How many steps forward?', validators=[DataRequired()])

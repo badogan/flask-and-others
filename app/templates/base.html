@@ -3,18 +3,14 @@
         {% if title %}
         <title>{{ title }} - microblog</title>
         {% else %}
-        <title>microblog</title>
+        <title>Welcome to Basri's Playground!</title>
         {% endif %}
     </head>
     <body>
          <div>
-        Microblog:
-        <a href="{{ url_for('index') }}">Home</a>
-        <a href="{{ url_for('login') }}">Login</a>
-        <a href="{{ url_for('basri') }}">Basri</a>
-        <a href="{{ url_for('basri2') }}">Basri_Multiply</a>
+        Welcome to Basri's Playground!
         <a href="{{ url_for('randommeal') }}">Random_Meal</a>
-        <a href="{{ url_for('dice') }}">Dice</a>
+        <a href="{{ url_for('dice') }}">Random_Dice</a>
     </div>
         <hr>
         {% with messages = get_flashed_messages() %}
