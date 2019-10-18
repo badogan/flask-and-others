@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>I am interested in your suggestions. Please enter and submit. Thanks:)</h1>
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.Suggestions.label }}<br>
+            {{ form.Suggestions(size=500) }}<br>
+            {% for error in form.Suggestions.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit() }}
+        </p>
+    </form>
+{% endblock %}

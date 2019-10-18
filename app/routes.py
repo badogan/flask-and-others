@@ -1,6 +1,7 @@
 from flask import render_template, flash, redirect, url_for
-from app import app
-from app.forms import LoginForm, BasriForm, BasriForm2, RandommealForm, BasriDiceForm
+from app import app, db
+from app.forms import LoginForm, BasriForm, BasriForm2, RandommealForm, BasriDiceForm, BasriSuggestionsForm
+from app.models import Suggestion
 import lib.BasriFunctions as h
 import config as c
 import numpy as np
@@ -63,6 +64,34 @@ def basri2():
             form.var1.data, form.var2.data, multiplied_value, c.Config.SECRET_KEY,c.Config.USERNAME))
         return redirect(url_for('index'))
     return render_template('getdata2.html', title='Basri', form=form)
+
+@app.route('/suggestions', methods=['GET', 'POST'])
+def suggestions():
+    user = {'username': 'Basri'}                     
+    posts = [
+        {
+            'body': 'Gets your suggestions. List previous suggestions'
+        },
+        {
+            'body': 'To demonstate basic database operations.'
+        },
+        {
+            'body': 'SQLAlchemy, AWS RDS (MySQL)'
+        }
+    ]
+            
+    form = BasriSuggestionsForm()
+    if form.validate_on_submit():
+        flash('Others have provided the following so far...')
+        suggestions_retreived_from_db = Suggestion.query.all()
+        for s in suggestions_retreived_from_db:
+            flash(s)
+        flash('Your suggestions: {}'.format(form.Suggestions.data))
+        suggestion = Suggestion(body=form.Suggestions.data)
+        db.session.add(suggestion)
+        db.session.commit()
+        return render_template('index_Suggestions.html', title='Home', user=user, posts=posts)
+    return render_template('suggestions.html', title='Basri Suggestions', form=form)
 
 @app.route('/dice', methods=['GET', 'POST'])
 def dice():

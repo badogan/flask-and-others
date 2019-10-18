@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import DecimalField, StringField, PasswordField, BooleanField, SubmitField
+from wtforms import DecimalField, StringField, PasswordField, BooleanField, SubmitField, TextAreaField
 from wtforms.validators import DataRequired
 
 class LoginForm(FlaskForm):
@@ -35,3 +35,8 @@ class BasriDiceForm(FlaskForm):
     dice5 = DecimalField('5: How many steps forward?', validators=[DataRequired()])
     dice6 = DecimalField('6: How many steps forward?', validators=[DataRequired()])
     submit = SubmitField('Show me!')
+
+class BasriSuggestionsForm(FlaskForm):
+    Suggestions = TextAreaField('Suggestions', validators=[DataRequired()])
+    submit = SubmitField('Submit my Suggestion')
+    
