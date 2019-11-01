@@ -1,19 +1,26 @@
-<html>
-    <head>
-        {% if title %}
+{% extends 'bootstrap/base.html' %}
+
+{% block title %}
+    {% if title %}
         <title>{{ title }} - microblog</title>
         {% else %}
         <title>Welcome to Basri's Playground!</title>
         {% endif %}
-    </head>
-    <body>
-         <div>
-        Welcome to Basri's Playground!
-        <a href="{{ url_for('randommeal') }}">Random_Meal</a>
-        <a href="{{ url_for('dice') }}">Random_Dice</a>
-        <a href="{{ url_for('suggestions') }}">Random_Suggestions</a>
-    </div>
-        <hr>
+{% endblock %}
+
+{% block navbar %}
+    <nav class="navbar navbar-default">
+        ___Welcome to Basri's Playground!
+    </nav>
+    <nav class="navbar navbar-default">
+        <a href="{{ url_for('randommeal') }}">>Get me a random meal!</a>
+        <a href="{{ url_for('dice') }}">>Let's play a dice game!</a>
+        <a href="{{ url_for('suggestions') }}">>Any suggestions?</a>
+    </nav>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
         {% with messages = get_flashed_messages() %}
         {% if messages %}
         <ul>
@@ -23,6 +30,6 @@
         </ul>
         {% endif %}
         {% endwith %}
-        {% block content %}{% endblock %}
-    </body>
-</html>
+        {% block app_content %}{% endblock %}
+    </div>  
+{% endblock %}

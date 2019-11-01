@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import DecimalField, StringField, PasswordField, BooleanField, SubmitField, TextAreaField
+from wtforms import DecimalField, StringField, PasswordField, BooleanField, SubmitField, TextAreaField,SelectField
 from wtforms.validators import DataRequired
 
 class LoginForm(FlaskForm):
@@ -23,8 +23,9 @@ class BasriForm2(FlaskForm):
 class RandommealForm(FlaskForm):
     firstname = StringField('Name', validators=[DataRequired()])
     location = StringField('Location', validators=[DataRequired()])
-    language = StringField('Language (DE,TR,ES,IT,RU,AR)', validators=[DataRequired()])
-    remember_me = BooleanField('Remember Me')
+    #language = StringField('Language (DE,TR,ES,IT,RU,AR)', validators=[DataRequired()])
+    language = SelectField('Instructions language (in addition to English)',choices=[('DE','Deutsch'),('TR','Türkçe'),('ES','Español'),('IT','Italiano'),('RU','русский'),('AR','عربى')])
+    #remember_me = BooleanField('Remember Me')
     submit = SubmitField('Get me a random meal. Instructions in 2 languages!')
 
 class BasriDiceForm(FlaskForm):
@@ -39,4 +40,3 @@ class BasriDiceForm(FlaskForm):
 class BasriSuggestionsForm(FlaskForm):
     Suggestions = TextAreaField('Suggestions', validators=[DataRequired()])
     submit = SubmitField('Submit my Suggestion')
-    

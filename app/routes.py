@@ -162,4 +162,3 @@ def randommeal():
         #return redirect(url_for('index'))
         return render_template('index_Randommeal.html', title='Home', user=user, posts=posts, name = 'dnm name')
     return render_template('InitiateRandommeal.html', title='Random Meal', form=form)
-
